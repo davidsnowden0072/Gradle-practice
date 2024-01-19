@@ -5,5 +5,15 @@
  * To learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.5/samples
  */ 
  plugins {
-  java
+  java 
+  checkstyle 
+} 
+repositories {
+    mavenCentral()
+}
+checkstyle {
+    val archive = configurations.checkstyle.get().resolve().filter {
+        it.name.startsWith("checkstyle")
+    }
+    config = resources.text.fromArchiveEntry(archive, "google_checks.xml")
 }
